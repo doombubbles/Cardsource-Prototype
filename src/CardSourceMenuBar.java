@@ -16,18 +16,20 @@ public class CardSourceMenuBar extends JMenuBar{
 
     private static JFrame parent;
 
-    public CardSourceMenuBar(JFrame parent, Screen screen) {
+    public CardSourceMenuBar(JFrame parent) {
         JMenu fileMenu = new JMenu("File");
         this.parent = parent;
 
         fileMenu.add(open());
         fileMenu.add(nnew());
+
         /*
-        if (screen instanceof QuizEditorScreen) {
+        if (!Main.getMainFrame().tabs.isEmpty()) {
             fileMenu.add(save());
             fileMenu.add(saveAs());
         }
         */
+
 
         add(fileMenu);
     }
@@ -66,10 +68,9 @@ public class CardSourceMenuBar extends JMenuBar{
         save.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Main.saveFile()) {
-                    JOptionPane.showMessageDialog(null, "Saved!");
-                }
-
+            if (Main.saveFile()) {
+                JOptionPane.showMessageDialog(null, "Saved!");
+            }
             }
         });
         save.setAccelerator(KeyStroke.getKeyStroke('S', CTRL));

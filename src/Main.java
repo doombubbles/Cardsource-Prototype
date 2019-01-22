@@ -15,27 +15,13 @@ public class Main {
         return mainFrame;
     }
 
-    /**
-     * Switches the screen to a different screen of the program
-     * @param newScreen the screen to switch to
-     */
-    public static void switchScreen(Screen newScreen) {
-        mainFrame.remove(mainFrame.getCurrentScreen());
-        mainFrame.setCurrentScreen(newScreen);
-        mainFrame.add(newScreen);
-        mainFrame.updateMenubar();
-        mainFrame.revalidate();
-        mainFrame.repaint();
-    }
-
     public static void openFile(File file) {
-        CardFile quizFile = new CardFile(file);
-        CardEditorScreen quizEditorScreen = new CardEditorScreen(quizFile);
-        switchScreen(quizEditorScreen);
+        CardFile cardFile = new CardFile(file);
+        mainFrame.newCardTab(cardFile);
     }
 
     /**
-     * Chooses a quiz file to open
+     * Chooses a card file to open
      */
     public static void chooseOpenFile() {
         JFileChooser jFileChooser = new JFileChooser();
@@ -48,7 +34,7 @@ public class Main {
     }
 
     /**
-     * Creates a new quiz file
+     * Creates a new card file
      */
     public static void newFile() {
 
@@ -59,16 +45,6 @@ public class Main {
         if (result == JFileChooser.APPROVE_OPTION) {
             File file = jFileChooser.getSelectedFile();
             CardFile quizFile = new CardFile(file);
-            CardEditorScreen cardEditorScreen = new CardEditorScreen(quizFile);
-            if (mainFrame.getCurrentScreen() instanceof CardEditorScreen) {
-                CardEditorScreen editorScreen = (CardEditorScreen) mainFrame.getCurrentScreen();
-                /*
-                if (!editorScreen.saveChangesFirst()) {
-                    return;
-                }
-                */
-            }
-            switchScreen(cardEditorScreen);
 
         }
     }
@@ -78,12 +54,7 @@ public class Main {
      * @return whether the file was successfully saved
      */
     public static boolean saveFile() {
-        if (!(mainFrame.getCurrentScreen() instanceof CardEditorScreen)) {
-            return false;
-        }
-
-        CardEditorScreen quizEditorScreen = (CardEditorScreen) mainFrame.getCurrentScreen();
-        return false;//quizEditorScreen.saveFile();
+        return false;
     }
 
 
@@ -92,11 +63,6 @@ public class Main {
      * @return whether the file was successfully saved
      */
     public static boolean saveFileAs() {
-        if (!(mainFrame.getCurrentScreen() instanceof CardEditorScreen)) {
-            return false;
-        }
-
-        CardEditorScreen cardEditorScreen = (CardEditorScreen) mainFrame.getCurrentScreen();
-        return false;//cardEditorScreen.saveFileAs();
+        return false;
     }
 }
