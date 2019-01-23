@@ -10,7 +10,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         setTitle("Cardsource");
-        setSize(800, 600);
+        setSize(1280, 720);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 

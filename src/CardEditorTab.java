@@ -34,12 +34,23 @@ public class CardEditorTab extends JPanel {
         this.cardFile = cardFile;
         cardDesc = cardFile.convertToCardDesc();
 
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new GridBagLayout());
 
         JPanel basicInfoPanel = new JPanel();
-        add(basicInfoPanel);
-        GridBagLayout basicInfoLayout = new GridBagLayout();
-        basicInfoPanel.setLayout(basicInfoLayout);
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weightx = .5;
+        add(basicInfoPanel, c);
+        basicInfoPanel.setLayout(new GridBagLayout());
+
+        JPanel spellPanel = new JPanel();
+        c = new GridBagConstraints();
+        c.gridx = 1;
+        c.gridy = 0;
+        c.weightx = .5;
+        add(spellPanel, c);
+        spellPanel.setLayout(new GridBagLayout());
 
         name = addNameComponent(basicInfoPanel);
         mana = addManaComponent(basicInfoPanel);
@@ -48,9 +59,9 @@ public class CardEditorTab extends JPanel {
         rarity = addRarityComponent(basicInfoPanel);
         description = addDescriptionComponent(basicInfoPanel);
 
-        targetSelection = addTargetSelectionComponent(basicInfoPanel);
+        targetSelection = addTargetSelectionComponent(spellPanel);
 
-        spell = addSpellComponent(this);
+        spell = addSpellComponent(spellPanel);
 
         updateCardDesc();
     }
@@ -83,7 +94,7 @@ public class CardEditorTab extends JPanel {
 
         JTextField manaTextField = new JTextField(cardDesc.getBaseManaCost() + "");
 
-        manaTextField.setPreferredSize(new Dimension(30, manaTextField.getPreferredSize().height));
+        manaTextField.setMinimumSize(new Dimension(30, manaTextField.getPreferredSize().height));
         manaTextField.setHorizontalAlignment(JTextField.CENTER);
         c.gridx = 1;
         c.gridy = 1;
@@ -181,7 +192,7 @@ public class CardEditorTab extends JPanel {
         descriptionTextArea.setRows(3);
         descriptionTextArea.setLineWrap(true);
         descriptionTextArea.setWrapStyleWord(true);
-        //descriptionTextArea.setPreferredSize(new Dimension(200, 70));
+        descriptionTextArea.setMinimumSize(new Dimension(200, 70));
 
         JScrollPane descriptionScrollPane = new JScrollPane(descriptionTextArea);
         descriptionScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -218,24 +229,24 @@ public class CardEditorTab extends JPanel {
     }
 
     public JSpellComponent addSpellComponent(JPanel target) {
-        /*
+
         GridBagConstraints c = new GridBagConstraints();
         JLabel spellLabel = new JLabel("Spell:");
         c.gridx = 0;
-        c.gridy = 7;
-        c.anchor = GridBagConstraints.NORTHEAST;
+        c.gridy = 0;
         c.ipadx = 5;
-        basicInfoPanel.add(spellLabel, c);
-        */
+        c.anchor = GridBagConstraints.NORTH;
+        target.add(spellLabel, c);
+
 
         JSpellComponent spellComponent = new JSpellComponent(cardDesc.spell);
-        /*
-        c.gridx = 1;
-        c.gridy = 7;
+
+        c.gridx = 0;
+        c.gridy = 1;
         c.ipadx = 0;
-        c.anchor = GridBagConstraints.NORTHWEST;
-        basicInfoPanel.add(spellComponent, c);
-        */
+        c.anchor = GridBagConstraints.SOUTH;
+        target.add(spellComponent, c);
+
         target.add(spellComponent);
         return spellComponent;
     }

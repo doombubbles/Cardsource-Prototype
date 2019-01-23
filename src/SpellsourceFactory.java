@@ -6,6 +6,8 @@ import net.demilich.metastone.game.spells.Spell;
 import net.demilich.metastone.game.targeting.TargetSelection;
 import org.reflections.Reflections;
 
+import javax.swing.*;
+import java.awt.*;
 import java.lang.annotation.Target;
 import java.util.Arrays;
 import java.util.List;
@@ -65,4 +67,6 @@ public class SpellsourceFactory {
         Set<Class<? extends Spell>> subTypes = reflections.getSubTypesOf(Spell.class);
         return subTypes.stream().filter(aClass -> aClass.getSimpleName().equalsIgnoreCase(name)).findFirst().orElseGet(null);
     }
+
+
 }
